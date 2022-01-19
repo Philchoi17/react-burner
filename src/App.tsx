@@ -1,13 +1,33 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import * as React from 'react'
+import { Routes, Route } from 'react-router-dom'
 
-function App() {
+import './App.css'
+import { Home, About, Contact } from './Pages'
+import { Header, Footer } from './Components'
+
+import socialLinks from './misc/socialLinks.json'
+
+const { useState } = React
+export default function App() {
+  const [collapsed, setCollapsed] = useState(true)
+
+  const toggleNavbar = () => {
+    setCollapsed(!collapsed)
+  }
+
   return (
     <div className="App">
-      <h1>hello</h1>
+      <Header
+        collapsed={collapsed}
+        toggleNavbar={toggleNavbar}
+        socialLinks={socialLinks}
+      />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }
-
-export default App
